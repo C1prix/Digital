@@ -1,0 +1,82 @@
+// Definición de pines
+const int LED1_PIN = 5;
+const int LED2_PIN = 6;
+const int LED3_PIN = 7;
+const int LED4_PIN = 8;
+const int BUTTON1_PIN = 2;
+const int BUTTON2_PIN = 3;
+const int BUTTON3_PIN = 4;
+
+// Variables de estado de las luces LED
+bool led1_state = false;
+bool led2_state = false;
+bool led3_state = false;
+
+// Variables de tiempo para temporizadores
+unsigned long led1_timer = 0;
+unsigned long led2_timer = 0;
+unsigned long led3_timer = 0;
+
+void setup() {
+  // Configurar pines de entrada y salida
+  pinMode(LED1_PIN, OUTPUT);
+  pinMode(LED2_PIN, OUTPUT);
+  pinMode(LED3_PIN, OUTPUT);
+  pinMode(LED4_PIN, OUTPUT);
+  pinMode(BUTTON1_PIN, INPUT_PULLUP);
+  pinMode(BUTTON2_PIN, INPUT_PULLUP);
+  pinMode(BUTTON3_PIN, INPUT_PULLUP);
+}
+
+void loop() {
+  // Actualizar el estado de la LED1 si ha pasado el tiempo de temporización
+  if (millis() - led1_timer >= 3000) {
+    led1_state = false;
+    digitalWrite(LED1_PIN, led1_state);
+  }
+
+  // Actualizar el estado de la LED2 si ha pasado el tiempo de temporización
+  if (millis() - led2_timer >= 3000) {
+    led2_state = false;
+    digitalWrite(LED2_PIN, led2_state);
+  }
+
+  // Actualizar el estado de la LED3 si ha pasado el tiempo de temporización
+  if (millis() - led3_timer >= 3000) {
+    led3_state = false;
+    digitalWrite(LED3_PIN, led3_state);
+  }
+
+  // Verificar si se ha presionado el botón 1
+  if (digitalRead(BUTTON1_PIN) == LOW) {
+    // Reiniciar temporizador de LED1
+    led1_timer = millis();
+    // Encender LED1
+    led1_state = true;
+    digitalWrite(LED1_PIN, led1_state);
+  }
+
+  // Verificar si se ha presionado el botón 2
+  if (digitalRead(BUTTON2_PIN) == LOW) {
+    // Reiniciar temporizador de LED2
+    led2_timer = millis();
+    // Encender LED2
+    led2_state = true;
+    digitalWrite(LED2_PIN, led2_state);
+  }
+
+  // Verificar si se ha presionado el botón 3
+  if (digitalRead(BUTTON3_PIN) == LOW) {
+    // Reiniciar temporizador de LED3
+    led3_timer = millis();
+    // Encender LED3
+    led3_state = true;
+    digitalWrite(LED3_PIN, led3_state);
+  }
+
+  // Encender y apagar LED1 cada 1 segundo usando delay
+  digitalWrite(LED4_PIN, HIGH);
+  delay(1000);
+  digitalWrite(LED4_PIN, LOW);
+  delay(1000);
+}
